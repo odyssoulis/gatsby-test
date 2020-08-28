@@ -3,12 +3,32 @@ require('dotenv').config();
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-source-contentful`,
+      resolve: `gatsby-source-cosmicjs`,
       options: {
-        spaceId: process.env.CONTENTFUL_SPACE_ID,
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        host: process.env.CONTENTFUL_HOST || 'cdn.contentful.com'
+        bucketSlug: process.env.COSMIC_BUCKET_SLUG, // Get this value in Bucket > Settings
+        objectTypes: [
+          `pages`,
+          'ctas',
+          'testimonials'
+        ],
+        apiAccess: {
+          read_key: process.env.COSMIC_API_KEY, // Get this value in Bucket > Settings
+        },
+        localMedia: true // Download media locally for gatsby image (optional)
+      }
+    },
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true, // defaults to false
+        allExtensions: true, // defaults to false
       },
-    }
+    },
+    {
+      resolve: 'gatsby-plugin-codegen',
+      options: {
+        watch: false
+      },
+    },
   ],
 }
