@@ -1,7 +1,6 @@
 name: Do Something That Needs Scheduled
 on:
-  repository_dispatch:
-    types: do-something
+  workflow_dispatch
 jobs:
   build:
     name: Run Some Scheduled Thing
